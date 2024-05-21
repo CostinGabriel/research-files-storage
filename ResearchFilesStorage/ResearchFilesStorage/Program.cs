@@ -4,6 +4,8 @@ using MongoDB.Bson;
 using ResearchFilesStorage.Domain.Repository;
 using ResearchFilesStorage.Infrastructure;
 using System.Text.Json.Serialization;
+using ResearchFilesStorage.Application;
+using ResearchFilesStorage.Domain.Builders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,9 @@ builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
 builder.Services.Configure<ResearchFileDatabaseSettings>(builder.Configuration.GetSection("ResearchFileDatabase"));
 BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
 builder.Services.AddScoped<IResearchFileRepository, ResearchFileRepository>();
+
+builder.Services.AddTransient<IFileBuilder, FileBuilder>();
+builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
 //Add mediator 
 builder.Services.AddMediatR(cfg =>
