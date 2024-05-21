@@ -20,3 +20,5 @@ To start Api or Client from Visual Studio ( or other ide ) use the preset config
 There are two environments: <br/>
     - Development, used when you start project from Visual Studio<br/>
     - Docker, used when you start via docker compose<br/>
+Tip: When running api and client from docker-compose command please give it a few seconds so that rabbitmq hostname is accesible from other containers:)<br/>
+Api Swagger Url: http://localhost:5001/swagger<br/>
