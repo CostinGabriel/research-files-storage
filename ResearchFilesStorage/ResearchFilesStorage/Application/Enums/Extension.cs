@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace ResearchFilesStorage.Domain.Constants;
+namespace ResearchFilesStorage.Application.Enums;
 
 public enum Extension
 {

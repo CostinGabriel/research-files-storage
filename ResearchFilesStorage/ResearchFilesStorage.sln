@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResearchFilesStorage", "ResearchFilesStorage\ResearchFilesStorage.csproj", "{D5350806-AF2A-40D9-ADAE-6A79861BE0DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq", "RabbitMq\RabbitMq.csproj", "{4B0CA18C-244D-48B9-B967-6440C7633E00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D5350806-AF2A-40D9-ADAE-6A79861BE0DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5350806-AF2A-40D9-ADAE-6A79861BE0DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5350806-AF2A-40D9-ADAE-6A79861BE0DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B0CA18C-244D-48B9-B967-6440C7633E00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B0CA18C-244D-48B9-B967-6440C7633E00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B0CA18C-244D-48B9-B967-6440C7633E00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B0CA18C-244D-48B9-B967-6440C7633E00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
