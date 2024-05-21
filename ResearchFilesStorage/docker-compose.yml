@@ -1,0 +1,67 @@
+version: '3.9'
+services:
+  rabbitmq:
+    image: 'rabbitmq:3-management'
+    container_name: 'rabbitmq'
+    hostname: 'rabbitmq'
+    volumes:
+    - 'rabbitmq_data:/var/lib/rabbitmq'
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+    networks:
+      - app-tier
+    ports:
+    - 5672:5672
+    - 15672:15672
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 5s
+      timeout: 15s
+      retries: 3
+  mongo:
+    image: 'mongo'
+    container_name: 'mongo'
+    hostname: 'mongo'
+    restart: 'always'
+    volumes:
+    - 'mongo_data:/data/db'
+    networks:
+      - app-tier
+    ports:
+    - 27020:27020
+    command: ["mongod", "--port", "27020"]
+  webapi:
+    image: ${DOCKER_REGISTRY-}researchfilesstorage
+    container_name: 'webapi'
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ResearchFilesStorage/Dockerfile
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - app-tier
+    ports:
+    - 5001:8080
+  file-processor:
+    image: ${DOCKER_REGISTRY-}fileprocessor
+    container_name: 'file-processor'
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: FileProcessor/Dockerfile
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - app-tier
+    
+volumes:
+  rabbitmq_data:
+  mongo_data:
+
+networks:
+  app-tier:
+    driver: bridge

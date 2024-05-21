@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  rabbitmq:
+    image: 'rabbitmq:3-management'
+    container_name: 'rabbitmq'
+    hostname: 'rabbitmq'
+    volumes:
+    - 'rabbitmq_data:/var/lib/rabbitmq'
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+    ports:
+    - 5672:5672
+    - 15672:15672
+  mongo:
+    image: 'mongo'
+    container_name: 'mongo'
+    hostname: 'mongo'
+    restart: 'always'
+    volumes:
+    - 'mongo_data:/data/db'
+    ports:
+    - 27020:27020
+    command: ["mongod", "--port", "27020"]
+    
+volumes:
+  rabbitmq_data:
+  mongo_data:

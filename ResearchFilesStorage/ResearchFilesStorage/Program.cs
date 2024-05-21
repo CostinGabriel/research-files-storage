@@ -14,6 +14,7 @@ using RabbitMq.Extensions;
 using RabbitMq.Consumer;
 using RabbitMQ.Client;
 using ResearchFilesStorage.RabbitMq;
+using ResearchFilesStorage.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -85,6 +86,8 @@ if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docke
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

@@ -10,8 +10,8 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Debug
 WORKDIR /src
-COPY ["ResearchFilesStorage/ResearchFilesStorage.csproj", "ResearchFilesStorage/"]
-RUN dotnet restore "./ResearchFilesStorage/./ResearchFilesStorage.csproj"
+COPY ["./ResearchFilesStorage/ResearchFilesStorage.csproj", "ResearchFilesStorage/"]
+RUN dotnet restore "./ResearchFilesStorage/ResearchFilesStorage.csproj"
 COPY . .
 WORKDIR "/src/ResearchFilesStorage"
 RUN dotnet build "./ResearchFilesStorage.csproj" -c $BUILD_CONFIGURATION -o /app/build
