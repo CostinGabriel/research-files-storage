@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
 using MediatR;
+using RabbitMq.Messages;
 using ResearchFilesStorage.Application.Enums;
 using ResearchFilesStorage.Domain.Repository;
+using ResearchFilesStorage.RabbitMq;
 
 namespace ResearchFilesStorage.Application.Commands;
 
@@ -9,7 +11,8 @@ public record AddSecuredResearchFileCommand(string Name, string Content, Extensi
 
 public class AddSecuredResearchFileCommandHandler(
     IResearchFileRepository researchFileRepository,
-    IFileBuilder fileBuilder) : IRequestHandler<AddSecuredResearchFileCommand, Guid>
+    IFileBuilder fileBuilder,
+    IProcessFileMessageQueueProducer messageProducer) : IRequestHandler<AddSecuredResearchFileCommand, Guid>
 {
     public async Task<Guid> Handle(AddSecuredResearchFileCommand request, CancellationToken cancellationToken)
     {
@@ -21,6 +24,16 @@ public class AddSecuredResearchFileCommandHandler(
                                       .Build();
 
         var id = await researchFileRepository.AddAsync(researchFile);
+
+        var message = new ProcessResearchFileMessage()
+        {
+            Id = id,
+            Content = researchFile.Content,
+            Extension = researchFile.Extension,
+            Name = researchFile.Name
+        };
+
+        messageProducer.Send(message);
 
         return id;
     }
