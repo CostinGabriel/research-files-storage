@@ -6,6 +6,7 @@ using ResearchFilesStorage.Infrastructure;
 using System.Text.Json.Serialization;
 using ResearchFilesStorage.Application;
 using ResearchFilesStorage.Domain.Builders;
+using ResearchFilesStorage.Application.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,7 @@ builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
+    cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
 });
 
 var app = builder.Build();
